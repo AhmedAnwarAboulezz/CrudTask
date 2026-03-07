@@ -12,6 +12,7 @@ public sealed class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+        modelBuilder.Entity<Product>().HasQueryFilter(p => !p.IsDeleted);
         base.OnModelCreating(modelBuilder);
     }
 }

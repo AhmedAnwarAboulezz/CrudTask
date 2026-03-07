@@ -33,5 +33,14 @@ public sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
                 .HasMaxLength(3)
                 .IsRequired();
         });
+
+        builder.Property(p => p.IsDeleted)
+            .IsRequired()
+            .HasDefaultValue(false);
+
+        builder.Property(p => p.DeletedAt)
+            .IsRequired(false);
+
+        builder.HasIndex(p => p.IsDeleted);
     }
 }
