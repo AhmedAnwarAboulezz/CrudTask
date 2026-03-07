@@ -1,0 +1,49 @@
+@use '../../../shared/styles/variables' as vars;
+
+.product-list-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.product-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  .page-title {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: vars.$primary-color;
+  }
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  padding: 3rem;
+}
+
+.product-table {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.category-badge {
+  background-color: vars.$badge-background;
+  color: vars.$badge-color;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.no-data-cell {
+  text-align: center;
+  padding: 2rem;
+  color: #757575;
+  font-style: italic;
+}

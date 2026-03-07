@@ -1,0 +1,8 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Host=localhost;Port=5432;Database=CrudTaskDb;Username=postgres;Password=YOUR_DB_PASSWORD"
+  },
+  "Auth": {
+    "Audience": "YOUR_GOOGLE_CLIENT_ID"
+  }
+}

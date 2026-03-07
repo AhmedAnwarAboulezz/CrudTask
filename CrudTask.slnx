@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/CrudTask.API/CrudTask.API.csproj" />
+    <Project Path="src/CrudTask.Application/CrudTask.Application.csproj" />
+    <Project Path="src/CrudTask.Domain/CrudTask.Domain.csproj" />
+    <Project Path="src/CrudTask.Infrastructure/CrudTask.Infrastructure.csproj" />
+  </Folder>
+</Solution>
