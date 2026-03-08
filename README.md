@@ -84,7 +84,9 @@ dotnet ef database update --project src/CrudTask.Infrastructure --startup-projec
 
 ## Running
 
-### API
+### Option A — Local (without Docker)
+
+#### API
 
 ```bash
 dotnet run --project src/CrudTask.API --launch-profile "Development (https)"
@@ -92,7 +94,7 @@ dotnet run --project src/CrudTask.API --launch-profile "Development (https)"
 
 Swagger UI: `https://localhost:7001/swagger`
 
-### Angular dev server
+#### Angular dev server
 
 ```bash
 cd CrudTask.Client
@@ -100,6 +102,72 @@ node node_modules/@angular/cli/bin/ng.js serve --open
 ```
 
 App: `http://localhost:4200`
+
+---
+
+### Option B — Docker Compose
+
+#### Prerequisites
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+
+No local .NET SDK, Node.js, or PostgreSQL required.
+
+#### Configuration
+
+All secrets and settings are passed as **environment variables** in `docker-compose.yml`, overriding `appsettings.json`. `appsettings.Development.json` is excluded from the image via `.dockerignore`.
+
+Before first run, update the following values in `docker-compose.yml` under the `api` and `migrate` services:
+
+| Variable | Description |
+|---|---|
+| `Auth__Audience` | Your Google OAuth Client ID |
+| `ConnectionStrings__DefaultConnection` | DB credentials (defaults use `postgres`/`postgres`) |
+| `Cors__AllowedOrigins` | Frontend origin (default `http://localhost:4200`) |
+
+Also update `CrudTask.Client/src/environments/environment.docker.ts` with your Google `clientId` and `clientSecret`.
+
+#### First time setup
+
+```bash
+# 1. Apply database migrations
+docker compose run --rm migrate
+
+# 2. Build images and start all services
+docker compose up --build
+```
+
+#### Ports
+
+| Service | URL |
+|---|---|
+| Angular SPA | `http://localhost:4200` |
+| API | `http://localhost:5211` |
+| Swagger UI | `http://localhost:5211/swagger` |
+| PostgreSQL | `localhost:5432` |
+
+#### Common commands
+
+```bash
+# Start everything (rebuild changed images)
+docker compose up --build
+
+# Start in background
+docker compose up --build -d
+
+# Apply new EF migrations after adding one
+docker compose run --rm migrate
+
+# Stop all containers (DB data is preserved)
+docker compose down
+
+# Stop and wipe all data (full reset)
+docker compose down -v
+
+# Force full rebuild from scratch
+docker compose build --no-cache
+docker compose up
+```
 
 ## Features
 
