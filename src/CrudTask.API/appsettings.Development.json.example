@@ -3,6 +3,6 @@
     "DefaultConnection": "Host=localhost;Port=5432;Database=CrudTaskDb;Username=postgres;Password=YOUR_DB_PASSWORD"
   },
   "Auth": {
-    "Audience": "379286327162-ifjv0jdqn185ko7q6ss9t8fv5aatncjp.apps.googleusercontent.com"
+    "Audience": "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
   }
 }
