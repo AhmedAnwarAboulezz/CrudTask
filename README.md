@@ -117,15 +117,29 @@ No local .NET SDK, Node.js, or PostgreSQL required.
 
 All secrets and settings are passed as **environment variables** in `docker-compose.yml`, overriding `appsettings.json`. `appsettings.Development.json` is excluded from the image via `.dockerignore`.
 
-Before first run, update the following values in `docker-compose.yml` under the `api` and `migrate` services:
+Before first run, complete the following two steps:
+
+**Step 1 — Frontend: update `CrudTask.Client/src/environments/environment.docker.ts`** with your Google OAuth credentials:
+
+```typescript
+export const environment = {
+  production: true,
+  apiUrl: 'http://localhost:5211',
+  auth: {
+    issuer: 'https://accounts.google.com',
+    clientId: 'YOUR_GOOGLE_CLIENT_ID',       // <-- replace with your Client ID
+    clientSecret: 'YOUR_GOOGLE_CLIENT_SECRET' // <-- replace with your Client Secret
+  },
+};
+```
+
+**Step 2 — Backend: update the following values in `docker-compose.yml`** under the `api` and `migrate` services:
 
 | Variable | Description |
 |---|---|
 | `Auth__Audience` | Your Google OAuth Client ID |
 | `ConnectionStrings__DefaultConnection` | DB credentials (defaults use `postgres`/`postgres`) |
 | `Cors__AllowedOrigins` | Frontend origin (default `http://localhost:4200`) |
-
-Also update `CrudTask.Client/src/environments/environment.docker.ts` with your Google `clientId` and `clientSecret`.
 
 #### First time setup
 
